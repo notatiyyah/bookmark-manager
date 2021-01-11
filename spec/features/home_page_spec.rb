@@ -1,6 +1,4 @@
-require "capybara/rspec"
-require "./lib/app"
-require 'spec_helper'
+require "spec_helper"
 
 feature "render home page" do
     before do
