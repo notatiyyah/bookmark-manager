@@ -1,6 +1,6 @@
 require 'sinatra/base'
 
-class App < Sinatra::Base
+class BookmarksApp < Sinatra::Base
 
   get "/test" do
     'Testing infrastructure working!'

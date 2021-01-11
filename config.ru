@@ -1,2 +1,2 @@
 require './lib/app.rb'
-run App
+run BookmarksApp
