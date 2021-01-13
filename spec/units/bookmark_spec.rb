@@ -3,10 +3,10 @@ require "./lib/bookmark.rb"
 describe Bookmark do
   let(:google) { Bookmark.new("https://google.com") }
 
-  it "can pre load links" do
-    Bookmark.pre_load
-    expect(Bookmark.all_links).to include("https://thoughtbot.com/upcase/test-driven-rails-resources/capybara.pdf")
-		expect(Bookmark.all_links).to include("https://github.com/makersacademy")
+  it "get bookmarks from database" do
+    expect(Bookmark.all).to include("http://www.makersacademy.com")
+    expect(Bookmark.all).to include("http://www.destroyallsoftware.com")
+    expect(Bookmark.all).to include("http://google.com")
   end
 
 	describe "initialization" do

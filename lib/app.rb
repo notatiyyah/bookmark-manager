@@ -12,8 +12,7 @@ class BookmarksApp < Sinatra::Base
   end
 
   get "/bookmarks" do
-    Bookmark.pre_load
-    @bookmarks = Bookmark.all_links
+    @bookmarks = Bookmark.all
     erb :bookmarks
   end
 

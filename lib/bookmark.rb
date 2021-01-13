@@ -1,17 +1,18 @@
+require 'pg'
+
 class Bookmark
+
 	@@all = []
+	@@conn = PG.connect( dbname: 'bookmark_manager' )
+	# Save connection to instance variable so don't have to keep repeating
 
 	def self.all
+		@conn.exec( "SELECT * FROM bookmarks").each do |row|
+			# Get results
+			@@all << row["url"]
+			# Add only urls to @@all array
+		end
 		@@all
-	end
-
-	def self.all_links
-		@@all.map(&:link)
-	end
-
-	def self.pre_load
-		Bookmark.new("https://thoughtbot.com/upcase/test-driven-rails-resources/capybara.pdf")
-		Bookmark.new("https://github.com/makersacademy")
 	end
 
 	# ^ Class methods / variables
