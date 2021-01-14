@@ -1,5 +1,4 @@
 require 'pg'
-
 class Bookmark
 
 	@@all = []
@@ -7,11 +6,9 @@ class Bookmark
 	# Save connection to instance variable so don't have to keep repeating
 
 	def self.all
-		@conn.exec( "SELECT * FROM bookmarks").each do |row|
-			# Get results
-			@@all << row["url"]
-			# Add only urls to @@all array
-		end
+		@@all = @@conn.exec( "SELECT * FROM bookmarks").map{|bookmark| bookmark["url"]}
+		# Get results
+		# Add only urls to @@all array
 		@@all
 	end
 

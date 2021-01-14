@@ -1,4 +1,5 @@
 require "spec_helper"
+require 'pg'
 
 feature "view bookmarks" do
 	before do
