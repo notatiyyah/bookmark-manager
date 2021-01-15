@@ -23,6 +23,13 @@ describe Bookmark do
       expect(bookmark_urls).to include(twitter)
     end
 
-	end
+  end
+  
+  it "deletes 'twitter' from database" do
+    tw_bm = Bookmark.new(twitter, "Twitter")
+    Bookmark.delete(tw_bm)
+    bookmark_urls = Bookmark.all.map{|b| b.url }
+    expect(bookmark_urls).not_to include(twitter)
+  end
 
 end

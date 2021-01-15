@@ -20,6 +20,11 @@ class Bookmark
 		@@conn.exec( "INSERT INTO bookmarks (url,alias) VALUES('#{bookmark.url}','#{bookmark.alias}')")
 	end
 
+	def self.delete(bookmark)
+		self.connect if @@conn.nil?
+		@@conn.exec( "DELETE FROM bookmarks WHERE url = '#{bookmark.url}'")
+	end
+
 	# ^ Class methods / variables
 	# v Instance methods 
 
