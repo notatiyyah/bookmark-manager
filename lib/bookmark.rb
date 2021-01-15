@@ -2,10 +2,15 @@ require 'pg'
 class Bookmark
 
 	@@all = []
-	@@conn = PG.connect( dbname: 'bookmark_manager' )
-	# Save connection to instance variable so don't have to keep repeating
+	@@conn = nil
+
+	def self.connect(is_testing=false)
+		@@conn = PG.connect( dbname: is_testing ? 'bookmark_manager_test' : 'bookmark_manager' )
+		# Save connection to instance variable so don't have to keep repeating
+	end
 
 	def self.all
+		self.connect if @@conn.nil?
 		@@all = @@conn.exec( "SELECT * FROM bookmarks").map{|bookmark| bookmark["url"]}
 		# Get results
 		# Add only urls to @@all array

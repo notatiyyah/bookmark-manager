@@ -55,11 +55,12 @@ PLATFORMS
 DEPENDENCIES
   capybara
   pg
+  rack
   rspec
   sinatra
 
 RUBY VERSION
-   ruby 3.0.0p0
+   ruby 2.6.5p114
 
 BUNDLED WITH
-   2.2.3
+   2.2.5
