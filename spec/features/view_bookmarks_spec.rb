@@ -1,7 +1,7 @@
 require "spec_helper"
 require 'pg'
 
-feature "view bookmarks" do
+feature "bookmarks" do
 	before do
 		Bookmark.connect(true)
 		visit "/bookmarks"
@@ -12,7 +12,7 @@ feature "view bookmarks" do
 	end
 
 	scenario "view bookmarks" do
-		expect(page).to have_content "http://www.makersacademy.com"
+		expect(page).to have_content "Makers"
 	end
 
 end

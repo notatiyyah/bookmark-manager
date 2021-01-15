@@ -9,16 +9,18 @@ describe Bookmark do
   end
 
   it "get bookmarks from database" do
-    expect(Bookmark.all).to include("http://www.makersacademy.com")
-    expect(Bookmark.all).to include("http://www.destroyallsoftware.com")
-    expect(Bookmark.all).to include("https://google.com")
+    bookmark_urls = Bookmark.all.map{|b| b.url }
+    expect(bookmark_urls).to include("http://www.makersacademy.com")
+    expect(bookmark_urls).to include("http://www.destroyallsoftware.com")
+    expect(bookmark_urls).to include("https://google.com")
   end
 
 	describe "initialization" do
 
     it "adds self to db" do
-      Bookmark.new(twitter)
-      expect(Bookmark.all).to include(twitter)
+      tw_bm = Bookmark.new(twitter, "Twitter")
+      bookmark_urls = Bookmark.all.map{|b| b.url }
+      expect(bookmark_urls).to include(twitter)
     end
 
 	end

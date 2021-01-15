@@ -1,4 +1,5 @@
 require 'pg'
+
 class Bookmark
 
 	@@conn = nil
@@ -10,21 +11,24 @@ class Bookmark
 
 	def self.all
 		self.connect if @@conn.nil?
-		@@conn.exec( "SELECT * FROM bookmarks").map{|bookmark| bookmark["url"]}
-		# Get results
-		# Add only urls to @@all array
-		end
+		@@conn.exec( "SELECT * FROM bookmarks").map{|record| Bookmark.new(record["url"], record["alias"], false)}
+		# Get results -> Array of Bookmark objects
+	end
+
+	def self.add(bookmark)
+		self.connect if @@conn.nil?
+		@@conn.exec( "INSERT INTO bookmarks (url,alias) VALUES('#{bookmark.url}','#{bookmark.alias}')")
+	end
 
 	# ^ Class methods / variables
 	# v Instance methods 
 
-	def initialize(link)
-		add_to_db(link)
+	attr_reader :alias, :url
+
+	def initialize(link, name, add_to_db=true)
+		@alias = name
+		@url = link
+		Bookmark.add(self) if add_to_db
 	end
 
-	def add_to_db(link)
-		Bookmark.connect if @@conn.nil?
-		@@conn.exec( "INSERT INTO bookmarks (url) VALUES('#{link}')")
-	end
-	
 end
