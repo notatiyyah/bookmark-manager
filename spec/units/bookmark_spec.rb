@@ -2,7 +2,7 @@ require "bookmark.rb"
 require "database_helper.rb"
 
 describe Bookmark do
-  let(:twitter) { Bookmark.new("https://twitter.com") }
+  let(:twitter) { "https://twitter.com" }
   before do
     reset_db
     Bookmark.connect(true)
@@ -15,12 +15,9 @@ describe Bookmark do
   end
 
 	describe "initialization" do
-		
-		it "stores link" do
-        expect(twitter.link).to eq "https://twitter.com"
-    end
 
-    it "adds self to list" do
+    it "adds self to db" do
+      Bookmark.new(twitter)
       expect(Bookmark.all).to include(twitter)
     end
 
