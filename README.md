@@ -29,4 +29,8 @@ This is the code for a Bookmarks Manager web page using a database
 As a user,
 So that I can see all the bookmarks,
 I'd like the page to show a list of bookmarks
+
+As a user,
+So that I can edit my bookmarks,
+I'd like to be able to add and remove bookmarks
 ```
