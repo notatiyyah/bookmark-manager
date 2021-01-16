@@ -12,12 +12,6 @@ class BookmarksApp < Sinatra::Base
     erb :bookmarks
   end
 
-  get "/delete" do
-    @delete = true
-    @bookmarks = Bookmark.all
-    erb :bookmarks
-  end
-
   post "/delete" do
     params.keys.each{ |name| Bookmark.delete(Bookmark.get_url(name)) }
     redirect "/"

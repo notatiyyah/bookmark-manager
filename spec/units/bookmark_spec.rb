@@ -40,6 +40,18 @@ describe Bookmark do
       expect(Bookmark.get_url("this-doesnt-exist")).to be_empty
     end
 
+  end
+
+  describe "get title" do
+
+    it "gets url from bookmark title" do
+      expect(Bookmark.get_title(twitter)).to include("Twitter")
+    end
+
+    it "returns empty array if no urls" do
+      expect(Bookmark.get_url("this-doesnt-exist")).to be_empty
+    end
 
   end
+
 end

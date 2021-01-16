@@ -12,10 +12,9 @@ feature "edit bookmarks" do
   end
 
   scenario "delete bookmark" do
-    visit "/delete"
-    expect(page).to have_content "Mark the bookmarks you would like to delete"
+    visit "/"
     check "Makers"
-    click_on "Submit"
+    click_on "delete"
     expect(page).not_to have_content "Makers"
   end
 

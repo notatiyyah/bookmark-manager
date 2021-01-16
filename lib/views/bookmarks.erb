@@ -1,23 +1,19 @@
 <h1>Your Bookmarks:</h1>
 <a href='/add'>Add Bookmark</a>
-<a href='/delete'>Delete Bookmark</a>
+<button type="submit" form="edit_bm" formaction="/delete" value="delete">Delete Bookmark</button>
 
-<% if @delete %><h2>Mark the bookmarks you would like to delete</h2><% else %>
-
-<%end %>
-
-<form action ="/delete" method="post">
+<form id="edit_bm" method="post">
   <% if @bookmarks.empty? %>
     <p>Press 'add' to add a bookmark!</p>
   <% else %>
+  <h3>Select bookmarks to edit</h3>
     <ul>
       <% @bookmarks.each do |bookmark| %>
         <li>
-          <% if @delete %><input type="checkbox" name='<%= bookmark.alias %>'><% end %>
+          <input type="checkbox" name='<%= bookmark.alias %>'>
           <a href = <%= bookmark.url %>><%= bookmark.alias %></a>
         </li>
       <% end %>
     </ul>
-    <% if @delete %><input type="submit" value="Submit"><% end %>
   <% end %>
 </form>

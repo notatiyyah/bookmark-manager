@@ -12,9 +12,8 @@ feature "full runthrough"  do
     fill_in "name", with: "Twitch"  
     click_on "submit"
     expect(page).to have_content "Twitch"
-    click_on "Delete Bookmark"
     check "Twitch"
-    click_on "Submit"
+    click_on "delete"
     expect(page).not_to have_content "Twitch"
   end
 

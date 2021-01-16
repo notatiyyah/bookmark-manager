@@ -32,5 +32,5 @@ I'd like the page to show a list of bookmarks
 
 As a user,
 So that I can edit my bookmarks,
-I'd like to be able to add and remove bookmarks
+I'd like to be able to add, remove and update bookmarks
 ```
