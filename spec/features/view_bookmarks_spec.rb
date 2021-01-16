@@ -3,7 +3,6 @@ require 'pg'
 
 feature "bookmarks" do
 	before do
-		Bookmark.connect(true)
 		visit "/"
 	end
 
