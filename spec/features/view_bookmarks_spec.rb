@@ -4,7 +4,7 @@ require 'pg'
 feature "bookmarks" do
 	before do
 		Bookmark.connect(true)
-		visit "/bookmarks"
+		visit "/"
 	end
 
 	scenario "view title" do

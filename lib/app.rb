@@ -8,10 +8,6 @@ class BookmarksApp < Sinatra::Base
   end
 
   get "/" do
-    erb :index
-  end
-
-  get "/bookmarks" do
     @bookmarks = Bookmark.all
     erb :bookmarks
   end
@@ -24,7 +20,7 @@ class BookmarksApp < Sinatra::Base
 
   post "/delete" do
     params.keys.each{ |name| Bookmark.delete(Bookmark.get_url(name)) }
-    redirect "/bookmarks"
+    redirect "/"
   end
 
   get "/add" do
@@ -33,7 +29,7 @@ class BookmarksApp < Sinatra::Base
 
   post "/add" do
     Bookmark.new(params["url"], params["name"])
-    redirect "/bookmarks"
+    redirect "/"
   end
 
   run! if app_file == $0
