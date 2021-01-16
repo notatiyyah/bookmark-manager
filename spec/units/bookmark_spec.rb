@@ -20,7 +20,7 @@ describe Bookmark do
   end
 
   it "deletes 'twitter' from database" do
-    Bookmark.delete([twitter])
+    Bookmark.delete(twitter)
     bookmark_urls = Bookmark.all.map{|b| b.url }
     expect(bookmark_urls).not_to include(twitter)
   end

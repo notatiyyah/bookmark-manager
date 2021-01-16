@@ -20,8 +20,8 @@ class Bookmark
 		DatabaseConnection.query("INSERT INTO bookmarks (url,alias) VALUES('#{bookmark.url}','#{bookmark.alias}')")
 	end
 
-	def self.delete(urls)
-		urls.each {|url| DatabaseConnection.query( "DELETE FROM bookmarks WHERE url = '#{url}'") }
+	def self.delete(url)
+		DatabaseConnection.query( "DELETE FROM bookmarks WHERE url = '#{url}'")
 	end
 
 	def self.update(params)

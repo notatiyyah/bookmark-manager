@@ -1,0 +1,9 @@
+<form method="post">
+  <input type="hidden" name="original_url" value="<%= @url %>">
+  <label for="url">URL:</label><br>
+  <input type="text" name="new_url" value="<%= @url %>"><br>
+  <input type="hidden" name="original_title" value="<%= @name %>">
+  <label for="name">Title:</label><br>
+  <input type="text" name="new_title" value="<%= @name %>"><br>
+  <input type="submit" name="submit">
+</form>

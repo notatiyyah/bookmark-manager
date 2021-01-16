@@ -1,8 +1,9 @@
 <h1>Your Bookmarks:</h1>
-<a href='/add'>Add Bookmark</a>
-<button type="submit" form="edit_bm" formaction="/delete" value="delete">Delete Bookmark</button>
+<button type="submit" form="edit_bm" formaction="/add" formmethod="get" value="add">Add Bookmark</button>
+<button type="submit" form="edit_bm" formaction="/edit" formmethod="get" value="update">Edit Bookmark</button>
+<button type="submit" form="edit_bm" formaction="/delete" formmethod="post" value="delete">Delete Bookmark</button>
 
-<form id="edit_bm" method="post">
+<form id="edit_bm" >
   <% if @bookmarks.empty? %>
     <p>Press 'add' to add a bookmark!</p>
   <% else %>
@@ -10,7 +11,7 @@
     <ul>
       <% @bookmarks.each do |bookmark| %>
         <li>
-          <input type="checkbox" name='<%= bookmark.alias %>'>
+          <input type="checkbox" name='<%= bookmark.alias %>' value='<%= bookmark.url %>'>
           <a href = <%= bookmark.url %>><%= bookmark.alias %></a>
         </li>
       <% end %>

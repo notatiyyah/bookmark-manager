@@ -13,16 +13,27 @@ class BookmarksApp < Sinatra::Base
   end
 
   post "/delete" do
-    params.keys.each{ |name| Bookmark.delete(Bookmark.get_url(name)) }
+    params.each{ |title, url| Bookmark.delete(url) }
     redirect "/"
   end
 
   get "/add" do
-    erb :add_form
+    erb :form
   end
 
   post "/add" do
-    Bookmark.new(params["url"], params["name"])
+    Bookmark.new(params["new_url"], params["new_title"])
+    redirect "/"
+  end
+
+  get "/edit" do
+    @url = params.values[0]
+    @name = params.keys[0]
+    erb :form
+  end
+
+  post "/edit" do
+    Bookmark.update(params)
     redirect "/"
   end
 
