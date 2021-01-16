@@ -1,7 +1,26 @@
 <h1>Your Bookmarks:</h1>
+<% if @delete %>
 
-<ul>
-  <% @bookmarks.each do |bookmark| %>
-    <li><a href = <%= bookmark.url %>><%= bookmark.alias %></a></li>
-  <% end %>
-</ul>
+  <h2>Mark the bookmarks you would like to delete</h2>
+
+<% else %>
+
+  <form action="/delete" method="post">
+    <button type="submit" name="delete">Delete</button>
+  </form>
+
+<%end %>
+
+<form action ="/delete" method="post">
+  <ul>
+    <% @bookmarks.each do |bookmark| %>
+      <li>
+        <% if @delete %>
+          <input type="checkbox" name='<%= bookmark.alias %>'>
+        <% end %>
+        <a href = <%= bookmark.url %>><%= bookmark.alias %></a>
+      </li>
+    <% end %>
+  </ul>
+  <input type="submit" value="Submit">
+</form>

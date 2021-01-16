@@ -1,11 +1,10 @@
 require "bookmark.rb"
-require "database_helper.rb"
+require "spec_helper.rb"
 
 describe Bookmark do
   let(:twitter) { "https://twitter.com" }
   before do
-    reset_db
-    Bookmark.connect(true)
+    Bookmark.new(twitter, "Twitter")
   end
 
   it "get bookmarks from database" do
@@ -15,21 +14,32 @@ describe Bookmark do
     expect(bookmark_urls).to include("https://google.com")
   end
 
-	describe "initialization" do
-
-    it "adds self to db" do
-      tw_bm = Bookmark.new(twitter, "Twitter")
-      bookmark_urls = Bookmark.all.map{|b| b.url }
-      expect(bookmark_urls).to include(twitter)
-    end
-
+  it "adds self to db" do
+    bookmark_urls = Bookmark.all.map{|b| b.url }
+    expect(bookmark_urls).to include(twitter)
   end
-  
+
   it "deletes 'twitter' from database" do
-    tw_bm = Bookmark.new(twitter, "Twitter")
-    Bookmark.delete(tw_bm)
+    Bookmark.delete([twitter])
     bookmark_urls = Bookmark.all.map{|b| b.url }
     expect(bookmark_urls).not_to include(twitter)
   end
 
+  describe "get url" do
+
+    it "gets url from bookmark title" do
+      expect(Bookmark.get_url("Twitter")).to include(twitter)
+    end
+
+    it "can return multiple urls with same title" do
+      Bookmark.new("http://google.com", "Twitter")
+      expect(Bookmark.get_url("Twitter")).to include("http://google.com", twitter)
+    end
+
+    it "returns empty array if no urls" do
+      expect(Bookmark.get_url("this-doesnt-exist")).to be_empty
+    end
+
+
+  end
 end

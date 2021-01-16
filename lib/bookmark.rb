@@ -15,14 +15,19 @@ class Bookmark
 		# Get results -> Array of Bookmark objects
 	end
 
+	def self.get_url(title)
+		self.connect if @@conn.nil?
+		@@conn.exec( "SELECT url FROM bookmarks WHERE alias = '#{title}'").map{|record| record["url"]}
+	end
+
 	def self.add(bookmark)
 		self.connect if @@conn.nil?
 		@@conn.exec( "INSERT INTO bookmarks (url,alias) VALUES('#{bookmark.url}','#{bookmark.alias}')")
 	end
 
-	def self.delete(bookmark)
+	def self.delete(urls)
 		self.connect if @@conn.nil?
-		@@conn.exec( "DELETE FROM bookmarks WHERE url = '#{bookmark.url}'")
+		urls.each {|url| @@conn.exec( "DELETE FROM bookmarks WHERE url = '#{url}'") }
 	end
 
 	# ^ Class methods / variables

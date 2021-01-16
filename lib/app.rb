@@ -16,11 +16,22 @@ class BookmarksApp < Sinatra::Base
     erb :bookmarks
   end
 
-  get "/add-bookmark" do
+  get "/delete" do
+    @delete = true
+    @bookmarks = Bookmark.all
+    erb :bookmarks
+  end
+
+  post "/delete" do
+    params.keys.each{ |name| Bookmark.delete(Bookmark.get_url(name)) }
+    redirect "/bookmarks"
+  end
+
+  get "/add" do
     erb :add_form
   end
 
-  post "/add-bookmark" do
+  post "/add" do
     Bookmark.new(params["url"], params["name"])
     redirect "/bookmarks"
   end
