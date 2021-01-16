@@ -24,6 +24,15 @@ class Bookmark
 		urls.each {|url| DatabaseConnection.query( "DELETE FROM bookmarks WHERE url = '#{url}'") }
 	end
 
+	def self.update(params)
+		if params["original_url"] != params["new_url"]
+			DatabaseConnection.query("UPDATE bookmarks SET url = '#{params["new_url"]}' WHERE url = '#{params["original_url"]}'")
+		end
+		if params["original_title"] != params["new_title"]
+			DatabaseConnection.query("UPDATE bookmarks SET alias = '#{params["new_title"]}' WHERE alias = '#{params["original_title"]}'")
+		end
+	end
+
 	# ^ Class methods / variables
 	# v Instance methods 
 

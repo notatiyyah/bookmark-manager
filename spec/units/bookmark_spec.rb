@@ -54,4 +54,38 @@ describe Bookmark do
 
   end
 
+  describe "update" do
+    let(:params) {{
+      "original_url" => "https://www.twitch.tv",
+      "original_title" => "Twitch",
+      "new_url" => "https://www.twitch.tv",
+      "new_title" =>  "Twitch"
+    }}
+    
+    it "update url" do
+      Bookmark.new("https://wwf.twitch.tv", "Twitch")
+      params["original_url"] = "https://wwf.twitch.tv"
+      Bookmark.update(params)
+      expect(Bookmark.get_url("Twitch")).to eq ["https://www.twitch.tv"]
+    end
+
+    it "update title" do
+      Bookmark.new("https://www.twitch.tv", "Tvitch")
+      params["original_title"] = "Tvitch"
+      Bookmark.update(params)
+      expect(Bookmark.get_title("https://www.twitch.tv")).to eq ["Twitch"]
+    end
+
+    it "update url & title" do
+      Bookmark.new("https://wwf.twitch.tv", "Tvitch")
+      params["original_url"] = "https://wwf.twitch.tv"
+      params["original_title"] = "Tvitch"
+      Bookmark.update(params)
+      amended_bm = Bookmark.all[-1]
+      expect(amended_bm.alias).to eq "Twitch"
+      expect(amended_bm.url).to eq "https://www.twitch.tv"
+    end
+
+  end
+
 end
