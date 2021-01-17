@@ -30,7 +30,7 @@ class BookmarksApp < Sinatra::Base
 
   post "/bookmarks/:action" do
     begin
-      InputVallidation.check_url(params["new_url"])
+      InputValidation.check_url(params["new_url"])
     rescue RuntimeError
       flash[:notice] = "You must submit a valid URL."
     else
