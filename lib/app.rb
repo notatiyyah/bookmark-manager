@@ -1,7 +1,14 @@
+require 'sinatra'
+require 'sinatra/flash'
 require 'sinatra/base'
+require 'uri'
 require_relative 'bookmark.rb'
 
 class BookmarksApp < Sinatra::Base
+
+  enable :sessions
+  set :session_secret, 'super secret'
+  register Sinatra::Flash
 
   get "/test" do
     'Testing infrastructure working!'
@@ -12,17 +19,22 @@ class BookmarksApp < Sinatra::Base
     erb :bookmarks
   end
 
-  post "/delete" do
-    params.each{ |title, url| Bookmark.delete(url) }
-    redirect "/"
-  end
-
-  get "/add" do
+  get "/bookmarks/add" do
     erb :form
   end
 
-  post "/add" do
-    Bookmark.new(params["new_url"], params["new_title"])
+  post "/bookmarks/add" do
+    begin
+      Bookmark.new(params["new_url"], params["new_title"])
+    rescue RuntimeError
+      flash[:notice] = "You must submit a valid URL."
+    ensure
+      redirect "/"
+    end
+  end
+
+  post "/delete" do
+    params.each{ |title, url| Bookmark.delete(url) }
     redirect "/"
   end
 
@@ -33,8 +45,13 @@ class BookmarksApp < Sinatra::Base
   end
 
   post "/edit" do
-    Bookmark.update(params)
-    redirect "/"
+    begin
+      Bookmark.update(params)
+    rescue RuntimeError
+      flash[:notice] = "You must submit a valid URL."
+    ensure
+      redirect "/"
+    end
   end
 
   run! if app_file == $0

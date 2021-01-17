@@ -26,6 +26,7 @@ class Bookmark
 
 	def self.update(params)
 		if params["original_url"] != params["new_url"]
+			raise "Not a valid URL" unless params["new_url"] =~ /\A#{URI::regexp}\z/
 			DatabaseConnection.query("UPDATE bookmarks SET url = '#{params["new_url"]}' WHERE url = '#{params["original_url"]}'")
 		end
 		if params["original_title"] != params["new_title"]
@@ -39,9 +40,13 @@ class Bookmark
 	attr_reader :alias, :url
 
 	def initialize(link, name, add_to_db=true)
-		@alias = name
-		@url = link
-		Bookmark.add(self) if add_to_db
+		if link =~ /\A#{URI::regexp}\z/
+			@alias = name
+			@url = link
+			Bookmark.add(self) if add_to_db
+		else
+			raise "Not a valid URL"
+		end
 	end
 
 end

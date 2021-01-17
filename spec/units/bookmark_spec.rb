@@ -19,6 +19,10 @@ describe Bookmark do
     expect(bookmark_urls).to include(twitter)
   end
 
+  it "raises error if not valid url" do
+    expect {Bookmark.new("not-valid-url", "invalid_bm")}.to raise_error "Not a valid URL"
+  end
+
   it "deletes 'twitter' from database" do
     Bookmark.delete(twitter)
     bookmark_urls = Bookmark.all.map{|b| b.url }
