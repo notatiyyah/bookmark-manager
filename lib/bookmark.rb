@@ -20,13 +20,12 @@ class Bookmark
 		DatabaseConnection.query("INSERT INTO bookmarks (url,alias) VALUES('#{bookmark.url}','#{bookmark.alias}')")
 	end
 
-	def self.delete(url)
-		DatabaseConnection.query( "DELETE FROM bookmarks WHERE url = '#{url}'")
+	def self.delete(url,title)
+		DatabaseConnection.query( "DELETE FROM bookmarks WHERE url = '#{url}' AND alias = '#{title}'")
 	end
 
 	def self.update(params)
 		if params["original_url"] != params["new_url"]
-			raise "Not a valid URL" unless params["new_url"] =~ /\A#{URI::regexp}\z/
 			DatabaseConnection.query("UPDATE bookmarks SET url = '#{params["new_url"]}' WHERE url = '#{params["original_url"]}'")
 		end
 		if params["original_title"] != params["new_title"]
@@ -40,13 +39,9 @@ class Bookmark
 	attr_reader :alias, :url
 
 	def initialize(link, name, add_to_db=true)
-		if link =~ /\A#{URI::regexp}\z/
-			@alias = name
-			@url = link
-			Bookmark.add(self) if add_to_db
-		else
-			raise "Not a valid URL"
-		end
+		@alias = name
+		@url = link
+		Bookmark.add(self) if add_to_db
 	end
 
 end

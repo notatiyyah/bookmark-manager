@@ -1,7 +1,7 @@
 <%= flash[:notice] %>
 <h1>Your Bookmarks:</h1>
 <button type="submit" form="edit_bm" formaction="/bookmarks/add" formmethod="get" value="add">Add Bookmark</button>
-<button type="submit" form="edit_bm" formaction="/edit" formmethod="get" value="update">Edit Bookmark</button>
+<button type="submit" form="edit_bm" formaction="/bookmarks/edit" formmethod="get" value="update">Edit Bookmark</button>
 <button type="submit" form="edit_bm" formaction="/delete" formmethod="post" value="delete">Delete Bookmark</button>
 
 <form id="edit_bm" >
